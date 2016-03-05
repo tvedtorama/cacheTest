@@ -5,6 +5,23 @@ const gulpBabel = require('gulp-babel');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var sass = require('gulp-sass');
+var browserify = require('browserify');
+var watchify = require('watchify');
+var babelify = require('babelify');
+
+
+function compileBrowserify(file, folder, watch) {
+	var bundler = watchify(browserify(file, { debug: true }).transform(babelify.configure({
+        presets: ['react', 'es2015', 'stage-0']})))
+
+	return bundler.bundle()
+	  .on('error', function(err) { console.error(err); this.emit('end'); })
+      .pipe(source(file))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(sourcemaps.write('./'))
+      .pipe(gulp.dest(folder));
+}
 
 function compile(fileSpec, output, folder) {
 	return gulp.src(fileSpec)
@@ -16,7 +33,7 @@ function compile(fileSpec, output, folder) {
 }
 
 function compileRuntime(watch) {
-  return compile(["./app/main.js"], 'build', watch);
+  return compileBrowserify("./app/main.js", 'build/web');
 }
 
 function compileServer(watch) {
@@ -39,11 +56,10 @@ function sassIt(path) {
     pipe(gulp.dest('./build/css/'));
 }
 
-gulp.task('buildServer', function() { compileServer();  });
+gulp.task('buildServer', function() { return compileServer(); });
+gulp.task('buildRuntime', function() { return compileRuntime(); });
 gulp.task('watch', function() { return watch(); });
 gulp.task('watchForTests', function() { return watchForTests(); });
-
-
 
 gulp.task('styles', function() {  
   var path = 'sass/**/*.scss'
@@ -53,5 +69,6 @@ gulp.task('styles', function() {
   });
 });
 
+gulp.task('build', ['buildRuntime', 'buildServer'])
 
 gulp.task('default', ['watch', 'styles']);

@@ -9,9 +9,10 @@ var app = express();
 var server = http.createServer(app);
 
 // Routing
-app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/build/web'));
-
+// app.use(express.static(__dirname + '/public'));
+console.log(__dirname)
+app.use(express.static(__dirname + '/../web'));
+	
 app.use('/main', (req, res) => {
 				res.render('main.ejs', {id: 'testId'})
 			})
