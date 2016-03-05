@@ -1,0 +1,61 @@
+.rootContainer {
+	display:flex;
+	flex-wrap: wrap;
+	border-style: solid;
+	justify-content: space-around;
+}
+
+.verticalContainer {
+	display:flex;
+	flex-direction: column;
+}
+
+.item {
+	margin: 10px;
+	padding: 5px 50px ;
+	border-style: solid;
+	border-color: blue;
+}
+
+.product {
+	padding: 20px 20px 30px 20px;
+	margin: 10px;
+	border-color: grey;
+	border-radius: 5px;
+	border-style: solid;
+	display: inline-block;
+	.productPrice {
+		display: inline-block;
+		color: green;
+		font-weight: bold;
+		text-align: right;
+		width: 45px;
+	}
+	.productName {
+		display:inline-block;
+		font-style: italic;
+		width: 200px;
+		font-size: 35px;
+	}
+	.inventory {
+	    display: block;
+    	position: absolute;
+    	border: #482AFF;
+    	border-style: solid;
+    	padding: 2px;
+		border-radius: 6px;
+	}
+}
+
+.button {
+	cursor: pointer;
+	margin: 8px 5px;
+    background: coral;
+    border-width: 2px;
+    display: inline;
+    border: grey;
+    border-style: solid;
+    padding: 5px;
+    border-radius: 3px;
+    color: whitesmoke;
+}
