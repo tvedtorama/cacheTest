@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {get} from 'jquery'
 
 class Child extends React.Component {
 	constructor() {
@@ -8,6 +9,7 @@ class Child extends React.Component {
 	}
 	onChange = e => {
 		this.setState({value: e.target.value})
+		get('compute', {value: e.target.value}, x => {this.setState({result: x.result})})
 	};
 	render() {
 		return (

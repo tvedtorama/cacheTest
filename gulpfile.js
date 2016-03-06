@@ -38,7 +38,7 @@ function compile(fileSpec, output, folder) {
 		.on('end', function() { console.log('Done compiling'); })
 		.pipe(sourcemaps.init())
 		.pipe(gulpBabel({presets: ['react', 'es2015', 'stage-0']}))
-		.pipe(concat(output))
+//		.pipe(concat(output))
 		.pipe(sourcemaps.write("."))
 		.pipe(gulp.dest(folder));
 }
@@ -47,7 +47,7 @@ function compileRuntime(watch) {
   return compileBrowserify("./app/main.js", 'build/web', watch);
 }
 
-var serverPath = './server/main.js'
+var serverPath = './server/**/*.js'
 
 function compileServer() {
 	return compile(serverPath, 'main.js', './build/server') 
