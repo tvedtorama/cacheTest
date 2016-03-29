@@ -94,5 +94,6 @@ gulp.task('watchStyles', function() {
 
 gulp.task('build', ['buildRuntime', 'buildServer', 'buildTests', 'styles'])
 gulp.task('watch', ['styles', 'watchStyles', 'buildServer', 'watchServer', 'watchTests', 'watchRuntime']);
+gulp.task('ci', ['build'])
 
 gulp.task('default', ['watch', 'styles']);
